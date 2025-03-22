@@ -47,15 +47,15 @@ public class MainPage {
 
     // Клик по вопросу (по индексу)
     public void clickFaqQuestion(int index) {
-        acceptCookies(); // Закрываем баннер перед кликом
-        List<WebElement> questions = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(faqQuestions));
-        if (index >= 0 && index < questions.size()) {
-            questions.get(index).click();
-        } else {
-            throw new IndexOutOfBoundsException("Invalid FAQ index: " + index);
-        }
-    }
+        WebElement question = driver.findElements(By.className("accordion__button")).get(index);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", question);
 
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException ignored) {}
+
+        question.click();
+    }
 
     // Получение текста ответа по индексу
     public String getFaqAnswerText(int index) {
@@ -88,7 +88,7 @@ public class MainPage {
 
     public void clickOrderButtonBottom() {
         acceptCookies(); // Закрываем баннер перед кликом
-        System.out.println("Кликаем верхнюю кнопку 'Заказать'");
+        System.out.println("Кликаем нижнюю кнопку 'Заказать'");
         WebElement button = wait.until(ExpectedConditions.elementToBeClickable(bottomOrderButton));
         button.click();
     }
