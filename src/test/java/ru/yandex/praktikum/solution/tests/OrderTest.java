@@ -70,6 +70,18 @@ public class OrderTest extends BaseTest {
         orderPage.fillFirstPage(name, surname, address, metro, phone);
         orderPage.fillSecondPage(date, rentDuration, blackScooter, greyScooter, comment);
 
-        assertTrue("Модальное окно подтверждения не появилось", orderPage.isOrderConfirmed());
+        String orderNumber = orderPage.getOrderNumber();
+        System.out.println("Заказ успешно оформлен. Номер заказа: " + orderNumber);
+        assertNotNull("Номер заказа не был отображен!", orderNumber);
+        assertFalse("Номер заказа пустой!", orderNumber.trim().isEmpty());
+
+        assertTrue("Кнопка 'Посмотреть статус' не отображается!", orderPage.isTrackOrderButtonVisible());
+
+        orderPage.clickTrackOrderButton();
+
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.urlContains("/track"));
+
+        System.out.println("Переход на страницу отслеживания выполнен.");
     }
 }
