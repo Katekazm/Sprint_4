@@ -179,7 +179,7 @@ public class OrderPage {
                     By.className("Order_ModalHeader__3FDaJ"),
                     "Номер заказа:"
             ));
-            System.out.println("✅ Номер заказа отображён — заказ успешно оформлен.");
+            System.out.println("Номер заказа отображён — заказ успешно оформлен.");
 
         } catch (TimeoutException e) {
             System.out.println("ОШИБКА: Модальное окно или кнопка 'Да' не сработали вовремя.");
